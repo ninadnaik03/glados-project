@@ -51,7 +51,6 @@ const playBase64Audio = async (base64Audio) => {
 return new Promise((resolve) => {
 if (!base64Audio || typeof window === 'undefined') return resolve();
 
-```
   const audio = new window.Audio(`data:audio/mp3;base64,${base64Audio}`);
 
   audio.onplay = () => {
@@ -73,14 +72,12 @@ if (!base64Audio || typeof window === 'undefined') return resolve();
 
   audio.play().catch(() => resolve());
 });
-```
 
 };
 
 const sendTranscriptToAI = async (transcript) => {
 if (!transcript || !transcript.trim()) return;
 
-```
 addMessage('SUBJECT', transcript);
 setIsTyping(true);
 setAiStatus('PROCESSING');
@@ -103,14 +100,12 @@ try {
   setAiStatus('IDLE');
   addMessage('GLADOS', 'Aperture systems briefly failed. Continue.');
 }
-```
 
 };
 
 const startListening = () => {
 if (typeof window === 'undefined') return;
 
-```
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (!SR) {
@@ -151,7 +146,6 @@ recognition.onresult = async (event) => {
 
 recognition.start();
 recognitionRef.current = recognition;
-```
 
 };
 
@@ -169,7 +163,6 @@ startListening();
 const handleToggleCam = async () => {
 if (typeof navigator === 'undefined') return;
 
-```
 if (camActive) {
   camStreamRef.current?.getTracks().forEach(track => track.stop());
   if (userVideoRef.current) userVideoRef.current.srcObject = null;
@@ -185,7 +178,6 @@ if (camActive) {
     addMessage('GLADOS', 'Camera activation denied. Probably for the best.');
   }
 }
-```
 
 };
 
@@ -217,35 +209,33 @@ setAiStatus('IDLE');
 setMessages(INITIAL_MESSAGES);
 setTestComplete(false);
 setScore(0);
-```
 
 };
 
 const handleFullscreen = () => {
 if (typeof document === 'undefined') return;
 
-```
 if (!document.fullscreenElement) {
   document.documentElement.requestFullscreen?.();
 } else {
   document.exitFullscreen?.();
 }
-```
 
 };
 
 return (
 <> <ScanlineOverlay />
 
-```
-  <nav style={{
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '12px 20px',
-    borderBottom: '1px solid var(--border)',
-    background: 'rgba(10,11,13,0.95)',
-  }}>
+  <nav
+    style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: '12px 20px',
+      borderBottom: '1px solid var(--border)',
+      background: 'rgba(10,11,13,0.95)',
+    }}
+  >
     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
       <ApertureIcon size={28} />
       <div style={{ fontFamily: 'Orbitron', fontSize: '11px', letterSpacing: '0.15em' }}>
@@ -321,7 +311,6 @@ return (
     </>
   )}
 </>
-```
 
 );
 }
