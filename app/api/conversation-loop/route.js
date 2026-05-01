@@ -9,8 +9,7 @@ export async function POST(req) {
       });
     }
 
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseUrl = new URL(req.url).origin;
 
     const chatRes = await fetch(`${baseUrl}/api/chat`, {
       method: "POST",
