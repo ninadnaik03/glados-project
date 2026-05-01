@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-
 import ApertureIcon from '../components/ApertureIcon';
 import ScanlineOverlay from '../components/ScanlineOverlay';
 import HeroPanel from '../components/HeroPanel';
@@ -96,7 +95,6 @@ try {
   const data = await res.json();
 
   setIsTyping(false);
-
   addMessage('GLADOS', data.reply || 'System response unavailable.');
   await playBase64Audio(data.audio);
 } catch (err) {
