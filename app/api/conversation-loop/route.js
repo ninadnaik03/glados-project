@@ -11,6 +11,8 @@ export async function POST(req) {
 
     const baseUrl = new URL(req.url).origin;
 
+    console.log("BASE URL:", baseUrl);
+
     const chatRes = await fetch(`${baseUrl}/api/chat`, {
       method: "POST",
       headers: {
@@ -19,7 +21,10 @@ export async function POST(req) {
       body: JSON.stringify({ message: transcript }),
     });
 
-    const chatData = await chatRes.json();
+    const chatText = await chatRes.text();
+    console.log("CHAT RAW RESPONSE:", chatText);
+
+    const chatData = JSON.parse(chatText);
 
     const ttsRes = await fetch(`${baseUrl}/api/tts`, {
       method: "POST",
@@ -29,7 +34,10 @@ export async function POST(req) {
       body: JSON.stringify({ text: chatData.reply }),
     });
 
-    const ttsData = await ttsRes.json();
+    const ttsText = await ttsRes.text();
+    console.log("TTS RAW RESPONSE:", ttsText);
+
+    const ttsData = JSON.parse(ttsText);
 
     return Response.json({
       reply: chatData.reply,
